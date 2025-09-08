@@ -1,0 +1,15 @@
+# 백준 2231 (분해합) 코드
+n = int(input())
+min_i = 0
+
+for i in range(1, n):
+    sum_i = i
+    k = i
+    while(k != 0):
+        sum_i += k % 10
+        k = k // 10
+    if(sum_i == n):
+        min_i = i
+        break
+
+print(min_i)
