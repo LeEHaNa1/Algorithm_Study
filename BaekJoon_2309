@@ -1,0 +1,25 @@
+height = []
+sum_height = 0
+find_flag = 0
+
+for i in range(9):
+    height.append(int(input()))
+    sum_height += height[i]
+
+fake_height = sum_height - 100
+
+for i in range(8):
+    culprit_height = fake_height - height[i]
+    for j in range(i+1, 9):
+        if(culprit_height == height[j]):
+            height[i] = 0
+            height[j] = 0
+            find_flag = 1
+            break
+    if(find_flag == 1):
+        break
+
+height.sort()
+
+for x in range(2,9):
+    print(height[x])
