@@ -1,0 +1,27 @@
+testcase_num = int(input())
+testcase = [int(input()) for i in range(testcase_num)]
+
+for k in testcase:
+    flag = 0
+    num = 0
+    T = []
+        
+
+    while((num+1)*(num+2)//2 < k):
+        T.append((num+1)*(num+2)//2)
+        num+=1
+
+    for i in range(num):
+        for j in range(i, num):
+            for h in range(j, num):
+                if (T[i] + T[j] + T[h] == k):
+                    flag = 1
+                    print("1")
+                    break
+            if(flag == 1):
+                break
+        if(flag == 1):
+            break
+    
+    if(flag == 0):
+        print("0")
