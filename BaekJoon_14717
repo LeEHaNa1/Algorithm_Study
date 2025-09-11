@@ -1,0 +1,41 @@
+def factorial(a):
+    if a == 1:
+        return 1
+    else:
+        return factorial(a-1)*a
+
+
+def combination(n, r):
+    x = factorial(r)
+    y = factorial(n-r)
+    z = factorial(n)
+    return z /(x*y)
+
+
+num1, num2 = map(int,(input().split()))
+other_whole = combination(18,2)
+# combination(18,2)로 하지 않고 153으로 해도 됨. (이미 총 카드가 10장이고 2장씩 뽑기로 결정했기 때문)
+# combination() 사용 -> 48ms, 정수로 설정 -> 36ms
+
+if(num1 == num2):
+    # 영학이가 가진 패가 땡일 경우. 질 확률을 계산하는 게 더 빠름. 1 - 질 확률 == 이길 확률
+    # 영학이가 질 경우 == 상대방의 패가 땡이면서 영학이의 숫자보다 클 때.
+    other_win = 10 - num1
+    print(f"{(1-(other_win/other_whole)):.3f}")
+    #print(round(1 - (other_win / other_whole), 3)) -> 1.000이 아닌 1.0까지만 출력됨.
+else:
+    # 영학이가 가진 패가 끗일 경우. 이길 확률을 계산하는 게 더 빠름.
+    yk_win_num = 0
+    yk_sum = (num1+num2) % 10
+    for i in range(1,11):
+        for j in range(i+1,11):
+            if ((num1 != i and num1 != j) and (num2 != i and num2 != j)):
+                # 영학이의 패와 상대방의 패의 숫자가 둘 다 다른 경우.
+                if (yk_sum > (i+j)%10):
+                    yk_win_num += 4
+            else:
+                # 1. 영학이의 패와 상대방의 패가 1개가 겹칠 때.
+                # 2. 영학이의 패와 상대방의 패가 모두 겹칠 때. -> if문에서 통과 X
+                if (yk_sum > (i+j)%10):
+                    yk_win_num += 2
+    print(f"{(yk_win_num / other_whole):.3f}")
