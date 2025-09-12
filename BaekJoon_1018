@@ -14,13 +14,13 @@ for i in range(n-7):
             # 8X8 크기일 때, 대각선으로 확인해야 하는 줄의 개수 == 15줄.
             # 첫 번째 줄은 board[i][j] 1개뿐이므로 확인할 필요 X
             if (k%2 == 0):
-                # min_repaint1 : match_color와 동일한 색깔. min_repaint2 : match_color와 다른 색깔.
+                # min_repaint1 : match_color와 동일한 색깔. repaint2 : match_color와 다른 색깔.
                 if (board[i][j] == 'B'):
                     match_color = 'W'
                 else:
                     match_color = 'B'
             else:
-                    # min_repaint1 : match_color와 동일한 색깔. min_repaint2 : match_color와 다른 색깔.
+                    # min_repaint1 : match_color와 동일한 색깔. repaint2 : match_color와 다른 색깔.
                     match_color = board[i][j]
             
             if (k <= 8):
