@@ -1,0 +1,43 @@
+n, m = map(int, input().split())
+board = [list(input()) for _ in range(n)]
+final = 65
+
+for i in range(n-7):
+    for j in range(m-7):
+        # i와 j는 8X8 크기의 체스판의 왼쪽 상단 꼭짓점이 될 수 있는 index를 의미함.
+        repaint1 = 0
+        # 왼쪽 상단의 색깔을 그대로 둘 때 고쳐야 하는 횟수
+        repaint2 = 1
+        # 왼쪽 상단의 색깔을 고칠 때 고쳐야 하는 횟수 (이미 왼쪽 상단의 색깔을 고치므로 초기값은 1)
+        
+        for k in range(2,16):
+            # 8X8 크기일 때, 대각선으로 확인해야 하는 줄의 개수 == 15줄.
+            # 첫 번째 줄은 board[i][j] 1개뿐이므로 확인할 필요 X
+            if (k%2 == 0):
+                # min_repaint1 : match_color와 동일한 색깔. min_repaint2 : match_color와 다른 색깔.
+                if (board[i][j] == 'B'):
+                    match_color = 'W'
+                else:
+                    match_color = 'B'
+            else:
+                    # min_repaint1 : match_color와 동일한 색깔. min_repaint2 : match_color와 다른 색깔.
+                    match_color = board[i][j]
+            
+            if (k <= 8):
+                for p in range(k):
+                    if(board[i+(k-1)-p][j+p] != match_color):
+                        repaint1 += 1
+                    else:
+                        repaint2 += 1  
+            else:
+                # 가장 긴 대각선은 k가 8일 때. 그 이후로는 다시 대각선을 이루는 요소의 개수가 줄어듦.
+                for p in range(k - 2*(k-8)):
+                    if(board[i+(k-8)+p][j+7-p] != match_color):
+                        repaint1 += 1
+                    else:
+                        repaint2 += 1
+        if (final > min(repaint1, repaint2)):
+            final = min(repaint1, repaint2)
+
+
+print(final)
