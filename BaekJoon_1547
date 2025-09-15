@@ -1,0 +1,20 @@
+m = int(input())
+switch = [list(map(int, input().split())) for _ in range(m)]
+location = []
+
+for x in range(3):
+    location.append(x+1)
+    # 처음 위치 : location[0] = 1번 컵의 위치, location[1] = 2번 컵위 위치, location[2] = 3번 컵의 위치
+
+for i in range(m):
+    a = switch[i][0] - 1
+    b = switch[i][1] - 1
+    # switch[1][] : 바꾸어야 할 컵의 번호. a,b : location에 대입할 index로 사용할 변수.
+    if (a != b):
+        temp = location[a]
+        location[a] = location[b]
+        location[b] = temp
+
+for n in range(3):
+    if (location[n] == 1):
+        print(n+1)
