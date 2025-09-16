@@ -22,7 +22,7 @@ for day in range(14):
                     B_stock = 0 # 전량 매도
             else:
                 # 전일 대비 주가가 증가하였지만 이전에 하락하고 있었을 때.
-                flag = 1 # reset (3일 연속 증가/하락이 깨졌기 때문.)
+                flag = 1 # reset (3일 연속 하락이 깨졌기 때문.)
         elif(stock_price[day-1] > stock_price[day]):
             # 전일 대비 주가가 하락할 때
             if(flag <= 0):
