@@ -1,0 +1,53 @@
+A_money = B_money = int(input())
+A_stock, B_stock, flag = 0,0,0
+
+stock_price = list(map(int, input().split()))
+
+for day in range(14):
+    if(A_money >= stock_price[day]):
+        # 준현이가 그 날 살 수 있는 주식이 1개라도 있는 경우에만 매수.
+        A_possible = A_money // stock_price[day]
+        A_stock += A_possible # 가능한 만큼 매수.
+        A_money -= A_possible * stock_price[day]
+    
+    if(day>=2):
+        if(stock_price[day-1] < stock_price[day]):
+            # 전일 대비 주가가 증가할 때
+            if(flag>=0):
+                # 연속으로 증가할 수 있는 날이거나 연속으로 증가하고 있는 때일 때.
+                flag += 1
+                if(flag >= 3 and B_stock > 0):
+                    # 전일 대비 주가가 연속 3일 증가한 시점
+                    B_money += B_stock * stock_price[day]
+                    B_stock = 0 # 전량 매도
+                    flag = 0 # reset
+            else:
+                # 전일 대비 주가가 증가하였지만 이전에 하락하고 있었을 때.
+                flag = 1 # reset (3일 연속 증가/하락이 깨졌기 때문.)
+        elif(stock_price[day-1] > stock_price[day]):
+            # 전일 대비 주가가 하락할 때
+            if(flag <= 0):
+                # 연속으로 감소할 수 있는 날이거나 연속으로 감소하고 있는 때일 때.
+                flag -= 1
+                if(flag <= -3 and B_money >= stock_price[day]):
+                    # 전일 대비 주가가 연속 3일 하락한 시점 및 매수 가능할 자금이 있을 때.
+                    B_possible = B_money // stock_price[day]
+                    B_stock += B_possible # 가능한 만큼 전량 매수
+                    B_money -= B_possible * stock_price[day]
+                    flag = 0 # reset
+            else:
+                # 전일 대비 주가가 하락했지만 이전에 증가하고 있었을 때.
+                flag = -1
+        else:
+            # 전일 대비 주가가 동일할 때.
+            flag = 0
+
+final_A = A_stock * stock_price[-1] + A_money
+final_B = B_stock * stock_price[-1] + B_money
+
+if(final_A > final_B):
+    print("BNP")
+elif(final_A < final_B):
+    print("TIMING")
+else:
+    print("SAMESAME")
