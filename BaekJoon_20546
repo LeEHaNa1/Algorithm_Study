@@ -20,7 +20,6 @@ for day in range(14):
                     # 전일 대비 주가가 연속 3일 증가한 시점
                     B_money += B_stock * stock_price[day]
                     B_stock = 0 # 전량 매도
-                    flag = 0 # reset
             else:
                 # 전일 대비 주가가 증가하였지만 이전에 하락하고 있었을 때.
                 flag = 1 # reset (3일 연속 증가/하락이 깨졌기 때문.)
@@ -34,7 +33,6 @@ for day in range(14):
                     B_possible = B_money // stock_price[day]
                     B_stock += B_possible # 가능한 만큼 전량 매수
                     B_money -= B_possible * stock_price[day]
-                    flag = 0 # reset
             else:
                 # 전일 대비 주가가 하락했지만 이전에 증가하고 있었을 때.
                 flag = -1
