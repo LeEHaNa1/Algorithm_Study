@@ -1,0 +1,61 @@
+import sys
+
+def check(A, i, j):
+    if(i == j or i + j == 4):
+        # 대각선까지 확인해야 하는 경우.
+        if(i == 2 and j == 2):
+            flag = 4
+        else:
+            flag = 3
+
+        if(i == j):
+            for a in range(5):
+                if(A[a][a] != 0):
+                    flag -= 1
+                    break
+        if(i + j == 4):
+            for a in range(5):
+                if(A[4-a][a] != 0):
+                    flag -= 1
+                    break
+    else:
+        flag = 2
+
+    for a in range(5): # "열" 확인.
+        if A[a][j] != 0: # 아직 그 열이 모두 지워지지 않음.
+            flag -= 1
+            break
+    
+    for b in range(5): # "행" 확인.
+        if A[i][b] != 0: # 아직 그 행이 모두 지워지지 않음. 
+            flag -= 1
+            break
+
+    return flag
+    
+
+mine_bingo = [list(map(int, input().split())) for _ in range(5)]
+num_seq = [list(map(int, input().split())) for _ in range(5)]
+count = 0
+
+
+for i in range(5):
+    for j in range(5):
+        flag = 0
+        for x in range(5):
+            for y in range(5):
+                if(num_seq[i][j] == mine_bingo[x][y]):
+                    mine_bingo[x][y] = 0
+                    count += check(mine_bingo, x, y)
+                    if(count >= 3):
+                        flag = 2
+                        print(i*5 + j + 1)
+                        break
+                    flag = 1
+                    break
+            if (flag == 2 or flag == 1):
+                break
+        if (flag == 2):
+            break
+    if(flag == 2):
+        break
