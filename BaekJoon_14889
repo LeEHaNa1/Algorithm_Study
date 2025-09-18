@@ -1,0 +1,19 @@
+from itertools import combinations
+
+n = int(input()) # n은 짝수
+power_graph = [list(map(int, input().split())) for _ in range(n)]
+possible = list(combinations(list(range(n)), n//2))
+final_gap = 10000
+
+for i in range(len(possible) // 2):
+    A_sum = 0
+    for x in combinations(possible[i], 2):
+        A_sum += power_graph[x[0]][x[1]] + power_graph[x[1]][x[0]]
+    B_sum = 0
+    for x in combinations(possible[-1-i], 2):
+        B_sum += power_graph[x[0]][x[1]] + power_graph[x[1]][x[0]]
+    gap = max(A_sum, B_sum) - min(A_sum, B_sum)
+    if (final_gap > gap):
+        final_gap = gap
+
+print(final_gap)
