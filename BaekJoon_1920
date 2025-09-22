@@ -1,0 +1,26 @@
+def binary_search(A,low,high,key):
+    if(low > high):
+        return -1
+    else:
+        mid = low + (high-low)//2
+        if(A[mid] == key):
+            return mid
+        elif (A[mid] > key):
+            return binary_search(A,low,mid-1,key)
+        else:
+            return binary_search(A,mid+1,high,key)
+
+
+n = int(input())
+num_list = list(map(int, input().split()))
+num_list.sort()
+m = int(input())
+num_candi = list(map(int, input().split()))
+
+
+for x in num_candi:
+    result = binary_search(num_list, 0, len(num_list)-1, x)
+    if(result != -1):
+        print("1")
+    else:
+        print("0")
