@@ -1,0 +1,15 @@
+n = int(input())
+employee = {}
+
+for _ in range(n):
+    people = list(input().split())
+    if(people[1] == 'enter'):
+        employee[people[0]] = 1
+    else:
+        employee[people[0]] = 0
+
+sorted_employee = sorted(employee.keys(), reverse = True)
+
+for p in sorted_employee:
+    if(employee[p] == 1):
+        print(p)
