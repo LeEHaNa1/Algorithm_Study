@@ -11,8 +11,8 @@ for i in range(T):
             if len(parentheses) == 0:
                 flag = 1
                 break
-            elif len(parentheses) > 0 and parentheses[-1] == '(':
-                    parentheses.pop()
+            else:
+                parentheses.pop()
     
     if flag != 1 and len(parentheses) == 0:
         print("YES")
