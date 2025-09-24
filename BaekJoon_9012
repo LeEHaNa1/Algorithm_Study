@@ -2,17 +2,19 @@ T = int(input())
 vps = [list(input()) for _ in range(T)]
 
 for i in range(T):
+    flag = 0
     parentheses = []
-    for x in vps[i]:
-        if x == '(':
-            parentheses.append(x)
+    for j in range(len(vps[i])):
+        if vps[i][j] == '(':
+            parentheses.append(vps[i][j])
         else:
-            if len(parentheses) > 0 and parentheses[-1] == '(':
-                parentheses.pop()
-            else:
-                parentheses.append(x)
+            if len(parentheses) == 0:
+                flag = 1
+                break
+            elif len(parentheses) > 0 and parentheses[-1] == '(':
+                    parentheses.pop()
     
-    if len(parentheses) == 0:
+    if flag != 1 and len(parentheses) == 0:
         print("YES")
     else:
         print("NO")
