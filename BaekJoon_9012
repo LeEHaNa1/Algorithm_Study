@@ -1,0 +1,18 @@
+T = int(input())
+vps = [list(input()) for _ in range(T)]
+
+for i in range(T):
+    parentheses = []
+    for x in vps[i]:
+        if x == '(':
+            parentheses.append(x)
+        else:
+            if len(parentheses) > 0 and parentheses[-1] == '(':
+                parentheses.pop()
+            else:
+                parentheses.append(x)
+    
+    if len(parentheses) == 0:
+        print("YES")
+    else:
+        print("NO")
