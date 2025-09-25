@@ -1,0 +1,12 @@
+n,m = map(int,input().split())
+pocketmon = {}
+for i in range(n):
+    pocketmon[input()] = i
+pocketmon_name = {v:k for k,v in pocketmon.items()}
+problem = list(input() for _ in range(m))
+
+for x in problem:
+        if x.isdigit():
+            print(pocketmon_name[int(x)-1])
+        else:
+            print(pocketmon[x]+1)
