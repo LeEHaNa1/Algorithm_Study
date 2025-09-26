@@ -1,0 +1,32 @@
+import sys
+input = sys.stdin.readline
+n = int(input())
+num_list = list(int(input()) for _ in range(n))
+num_stack = []
+print_list = []
+k = 0
+num = 1
+flag = True
+
+while(k<n):
+    if len(num_stack) != 0 and num_stack[-1] == num_list[k]:
+        print_list.append("-")
+        num_stack.pop()
+        k+=1
+    elif num <= n and num_list[k] == num:
+        print_list.append("+")
+        print_list.append("-")
+        num+=1
+        k+=1
+    elif num <= n and num_list[k] != num:
+        print_list.append("+")
+        num_stack.append(num)
+        num+=1
+    else:
+        print("NO")
+        flag = False
+        break
+
+if flag == True:
+    for x in print_list:
+        print(x)
