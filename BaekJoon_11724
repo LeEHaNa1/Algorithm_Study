@@ -1,0 +1,31 @@
+import sys
+sys.setrecursionlimit(100000)
+input = sys.stdin.readline
+
+def dfsRec(edg, visited, node,n):
+    visited[node] = True
+    
+    for x in edg[node]:
+        if not visited[x]:
+            dfsRec(edg, visited, x,n)
+
+
+def DFS(n, edg):
+    result = 0
+    visited = [False] * n
+    for i in range(n):
+        if not visited[i]:
+            dfsRec(edg, visited, i,n)
+            result += 1
+    return result
+
+
+n,m = map(int, input().split())
+input_edges = [list(map(int, input().split())) for _ in range(m)]
+edges = [[] for _ in range(n)]
+
+for x in input_edges:
+    edges[x[0]-1].append(x[1]-1)
+    edges[x[1]-1].append(x[0]-1)
+
+print(DFS(n,edges))
