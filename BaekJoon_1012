@@ -1,0 +1,43 @@
+import sys
+sys.setrecursionlimit(100000)
+input = sys.stdin.readline
+
+def find_worm_num(board, visited, a, b, m, n):
+    visited[a][b] = True
+    if b != 0 and not visited[a][b-1] and board[a][b-1] == 1:
+        find_worm_num(board, visited, a, b-1, m, n)
+        
+    if b != m-1 and not visited[a][b+1] and board[a][b+1] == 1:
+        find_worm_num(board, visited, a, b+1, m, n)
+        
+    if a != 0 and not visited[a-1][b] and board[a-1][b] == 1:
+        find_worm_num(board, visited, a-1, b, m, n)
+        
+    if a != n-1 and not visited[a+1][b] and board[a+1][b] == 1:
+        find_worm_num(board, visited, a+1, b, m, n)
+
+
+
+T = int(input())
+init = []
+locations = []
+for _ in range(T):
+    M, N, K = map(int, input().split())
+    init.append([M,N])
+    cabb_loc = [list(map(int, input().split())) for _ in range(K)]
+    locations.append(cabb_loc)
+
+for i in range(T):
+    field = [[0]*init[i][0] for _ in range(init[i][1])]
+    visited = [[False]*init[i][0] for _ in range(init[i][1])]
+    worm_num = 0
+    for x in locations[i]:
+        field[x[1]][x[0]] = 1
+    for a in range(init[i][1]):
+        for b in range(init[i][0]):
+            if field[a][b] == 0 and not visited[a][b]:
+                visited[a][b] = True
+            if field[a][b] == 1 and not visited[a][b]:
+                find_worm_num(field, visited, a,b, init[i][0], init[i][1])
+                worm_num += 1
+    print(worm_num)
