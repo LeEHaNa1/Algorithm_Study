@@ -1,0 +1,31 @@
+import sys
+from collections import deque
+input = sys.stdin.readline
+sys.setrecursionlimit(100000)
+
+def bfs(cur_loc, des_loc):
+    queue = deque()
+    visited = [-1] * 100001
+    count = [0] * 100001
+    queue.append(cur_loc)
+    visited[cur_loc] = 0
+    count[cur_loc] = 1
+    while queue:
+        loc = queue.popleft()
+        for j in (loc-1,loc+1,loc*2):
+            if 0 <= j <= 100000:
+                if visited[j] == -1:
+                    visited[j] = visited[loc] + 1 # 첫 방문할 때 걸리는 거리 갱신
+                    count[j] = count[loc] # 첫 방문 시에 방법 수를 기록함. 
+                    queue.append(j)
+                
+                elif visited[j] == visited[loc] + 1:
+                    # 첫 방문이 아님. 같은 최단 시간에 도달함.
+                    count[j] += count[loc] # 방법 수 증가.
+    
+    return (visited[des_loc], count[des_loc])
+
+n,k = map(int, input().split())
+result = bfs(n,k)
+print(result[0])
+print(result[1])
