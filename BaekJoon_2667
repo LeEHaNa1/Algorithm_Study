@@ -37,5 +37,3 @@ for i in range(n):
 print(cluster_num)
 for x in sorted(houses_num_list):
     print(x)
-for x in sorted(houses_num_list):
-    print(x)
